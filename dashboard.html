@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard - Franklin Forex Trades</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+}
+
+/* NAVBAR */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 40px;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(8px);
+}
+
+nav h2{
+  color:#00ffd5;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:20px;
+  font-size:15px;
+}
+
+nav a:hover{
+  color:#00ffd5;
+}
+
+/* DASHBOARD CARDS */
+.dashboard{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  padding:40px;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  padding:25px;
+  border-radius:15px;
+  text-align:center;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  background:rgba(255,255,255,0.08);
+}
+
+.card h3{
+  margin-bottom:10px;
+  color:#00ffd5;
+  font-size:18px;
+}
+
+.card p{
+  font-size:20px;
+  font-weight:bold;
+}
+
+/* RECENT TRADES */
+.recent-trades{
+  margin:40px;
+}
+
+.recent-trades h3{
+  margin-bottom:15px;
+  color:#00ffd5;
+}
+
+.recent-trades ul{
+  list-style:none;
+  padding-left:0;
+  max-height:300px;
+  overflow-y:auto;
+}
+
+.recent-trades li{
+  background:rgba(255,255,255,0.05);
+  padding:10px 15px;
+  margin-bottom:8px;
+  border-radius:10px;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:25px;
+  opacity:0.6;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <h2>Franklin Forex Trades</h2>
+  
+  <div class="dropdown">
+    <!-- Hamburger menu icon -->
+    <button class="dropbtn">&#9776;</button> <!-- 3-line menu icon -->
+
+    <div class="dropdown-content">
+      <a href="index.html">
+        <span style="font-size:18px; margin-right:10px;">🏠</span> Home
+      </a>
+      <a href="dashboard.html">
+        <span style="font-size:18px; margin-right:10px;">📊</span> Dashboard
+      </a>
+      <a href="performance.html">
+        <span style="font-size:18px; margin-right:10px;">📈</span> Performance
+      </a>
+      <a href="copy.html">
+        <span style="font-size:18px; margin-right:10px;">🤖</span> Copy Trading
+      </a>
+    </div>
+  </div>
+</nav>
+
+<style>
+/* NAVBAR */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 40px;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(8px);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+nav h2{
+  color:#00ffd5;
+  margin:0;
+}
+
+/* Dropdown */
+.dropdown{
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn{
+  background: none;
+  border: none;
+  color:white;
+  font-size:24px; /* bigger for hamburger icon */
+  cursor:pointer;
+  padding:8px 12px;
+}
+
+.dropbtn:hover{
+  color:#00ffd5;
+}
+
+.dropdown-content{
+  display:none;
+  position:absolute;
+  right:0;
+  background-color:rgba(0,0,0,0.95);
+  min-width:180px;
+  border-radius:10px;
+  box-shadow:0px 8px 16px 0px rgba(0,0,0,0.3);
+  overflow:hidden;
+}
+
+.dropdown-content a{
+  display:flex;
+  align-items:center;
+  padding:12px 16px;
+  text-decoration:none;
+  color:white;
+  border-bottom:1px solid rgba(0,255,204,0.2);
+  font-size:16px;
+  transition:0.3s;
+}
+
+.dropdown-content a:last-child{
+  border-bottom:none;
+}
+
+.dropdown-content a:hover{
+  background:rgba(0,255,204,0.2);
+  color:#00ffd5;
+}
+
+.dropdown:hover .dropdown-content{
+  display:block;
+}
+</style>
+<!-- DASHBOARD SECTION -->
+<section class="dashboard" id="dashboard">
+    <div class="card">
+        <h3>Total Profit</h3>
+        <p id="total-profit">$1200</p>
+    </div>
+
+    <div class="card">
+        <h3>Win Rate</h3>
+        <p id="win-rate">87%</p>
+    </div>
+
+    <div class="card">
+        <h3>Active Investors</h3>
+        <p id="active-investors">142</p>
+    </div>
+
+    <div class="card">
+        <h3>Drawdown</h3>
+        <p id="drawdown">6.2%</p>
+    </div>
+</section>
+
+<!-- RECENT TRADES -->
+<section class="recent-trades">
+    <h3>Recent Trades</h3>
+    <ul id="recent-trades"></ul>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 Franklin Forex Trades
+</footer>
+
+<script>
+// Utility to format currency
+function formatCurrency(value){
+    return '$' + value.toLocaleString();
+}
+
+// Dashboard constants
+const activeInvestors = 142;
+const drawdown = 6.2;
+let winRate = 87; // static or slowly increase if desired
+
+// Total Profit starts at $1200
+let totalProfit = 1200;
+
+// Recent trades history
+let recentTrades = [];
+
+// Sample trade pool
+const tradePool = [
+    {symbol:'XAUUSD', min:-120, max:150},
+    {symbol:'EURUSD', min:-50, max:80},
+    {symbol:'GBPUSD', min:-70, max:100},
+    {symbol:'USDJPY', min:-40, max:60},
+    {symbol:'XAGUSD', min:-30, max:50}
+];
+
+// Render dashboard
+function renderDashboard(){
+    document.getElementById('total-profit').textContent = formatCurrency(totalProfit);
+    document.getElementById('win-rate').textContent = winRate.toFixed(1) + '%';
+    document.getElementById('active-investors').textContent = activeInvestors;
+    document.getElementById('drawdown').textContent = drawdown.toFixed(1) + '%';
+}
+
+// Add a new trade realistically
+function addTrade(){
+    const trade = tradePool[Math.floor(Math.random()*tradePool.length)];
+    const profit = Math.floor(Math.random()*(trade.max - trade.min) + trade.min);
+
+    // Update total profit
+    totalProfit += profit;
+
+    // Create trade string
+    const tradeStr = trade.symbol + ' ' + (profit >=0 ? '+':'') + '$' + profit + ' (' + (Math.abs(profit)/100).toFixed(1) + '%)';
+
+    // Add to recent trades at top
+    recentTrades.unshift(tradeStr);
+
+    // Keep only last 9 trades
+    if(recentTrades.length > 9) recentTrades = recentTrades.slice(0,9);
+
+    // Render trades
+    const tradesList = document.getElementById('recent-trades');
+    tradesList.innerHTML = '';
+    recentTrades.forEach(tr => {
+        const li = document.createElement('li');
+        li.textContent = tr;
+        tradesList.appendChild(li);
+    });
+
+    // Update dashboard numbers
+    renderDashboard();
+}
+
+// Initial render
+renderDashboard();
+
+// Simulate trades realistically
+// For demo: every 15 seconds (replace with 18000000 for 5 hours = 18,000,000ms)
+setInterval(addTrade, 15000);
+
+</script>
+
+</body>
+</html>

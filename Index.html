@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Franklin Forex Trades</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+}
+
+/* NAVBAR */
+nav {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 40px;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(8px);
+  position: sticky;
+  top:0;
+  z-index:100;
+}
+
+nav h2 {
+  color:#00ffd5;
+  margin:0;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background: none;
+  border: none;
+  color:white;
+  font-size:24px;
+  cursor:pointer;
+  padding:8px 12px;
+}
+
+.dropbtn:hover {
+  color:#00ffd5;
+}
+
+.dropdown-content {
+  display:none;
+  position:absolute;
+  right:0;
+  background-color:rgba(0,0,0,0.95);
+  min-width:180px;
+  border-radius:10px;
+  box-shadow:0px 8px 16px rgba(0,0,0,0.3);
+  overflow:hidden;
+}
+
+.dropdown-content a {
+  display:flex;
+  align-items:center;
+  padding:12px 16px;
+  text-decoration:none;
+  color:white;
+  border-bottom:1px solid rgba(0,255,204,0.2);
+  font-size:16px;
+  transition:0.3s;
+}
+
+.dropdown-content a:last-child {
+  border-bottom:none;
+}
+
+.dropdown-content a:hover {
+  background:rgba(0,255,204,0.2);
+  color:#00ffd5;
+}
+
+.dropdown:hover .dropdown-content {
+  display:block;
+}
+
+/* HERO */
+.hero {
+  text-align:center;
+  padding:100px 20px 60px 20px;
+}
+
+.hero h1 {
+  font-size:48px;
+  color:#00ffd5;
+  margin-bottom:15px;
+}
+
+.hero p {
+  opacity:0.8;
+  margin-bottom:30px;
+  font-size:20px;
+}
+
+.hero .btn {
+  padding:15px 35px;
+  background:linear-gradient(45deg,#00ffcc,#00ccff);
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:16px;
+  transition:0.3s;
+  box-shadow:0 0 15px rgba(0,255,204,0.6);
+}
+
+.hero .btn:hover {
+  transform: scale(1.05);
+  box-shadow:0 0 25px rgba(0,255,204,1);
+}
+
+/* FEATURES */
+.features {
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  flex-wrap:wrap;
+  padding:60px 20px;
+  text-align:center;
+}
+
+.feature-card {
+  flex:1 1 250px;
+  background:rgba(255,255,255,0.05);
+  border-radius:15px;
+  padding:30px 20px;
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+
+.feature-card:hover {
+  transform:translateY(-8px);
+  box-shadow:0 0 20px rgba(0,255,204,0.4);
+}
+
+.feature-card h3 {
+  color:#00ffcc;
+  margin-bottom:15px;
+  font-size:22px;
+}
+
+.feature-card p {
+  opacity:0.8;
+  font-size:16px;
+}
+
+/* MINI DASHBOARD */
+.mini-dashboard {
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  flex-wrap:wrap;
+  padding:50px 20px;
+}
+
+.mini-card {
+  flex:1 1 180px;
+  background:rgba(255,255,255,0.05);
+  border-radius:15px;
+  padding:25px;
+  text-align:center;
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+
+.mini-card:hover {
+  transform:translateY(-5px);
+  box-shadow:0 0 20px rgba(0,255,204,0.4);
+}
+
+.mini-card h3 {
+  color:#00ffcc;
+  margin-bottom:10px;
+  font-size:18px;
+}
+
+.mini-card p {
+  font-size:20px;
+  font-weight:bold;
+  opacity:0.9;
+}
+
+/* RECENT TRADES */
+.recent-trades {
+  padding:50px 20px;
+  background:rgba(0,0,0,0.2);
+  border-radius:20px;
+  margin:0 20px 60px 20px;
+}
+
+.recent-trades h2 {
+  color:#00ffd5;
+  margin-bottom:25px;
+  text-align:center;
+}
+
+.recent-trades ul {
+  list-style:none;
+  padding-left:0;
+  max-width:600px;
+  margin:auto;
+}
+
+.recent-trades li {
+  background:rgba(255,255,255,0.05);
+  padding:12px 20px;
+  margin-bottom:10px;
+  border-radius:10px;
+  display:flex;
+  justify-content:space-between;
+  transition:0.3s;
+}
+
+.recent-trades li:hover {
+  background:rgba(0,255,204,0.2);
+}
+
+/* CTA SECTION */
+.cta {
+  text-align:center;
+  padding:60px 20px;
+}
+
+.cta .btn {
+  padding:15px 40px;
+  font-size:18px;
+}
+
+/* FOOTER */
+footer {
+  text-align:center;
+  padding:30px;
+  opacity:0.6;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <h2>Franklin Forex Trades</h2>
+  <div class="dropdown">
+    <button class="dropbtn">&#9776;</button>
+    <div class="dropdown-content">
+      <a href="index.html">🏠 Home</a>
+      <a href="dashboard.html">📊 Dashboard</a>
+      <a href="performance.html">📈 Performance</a>
+      <a href="copy.html">🤖 Copy Trading</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Automated Trading Solutions</h1>
+  <p>High-performance Expert Advisors, Risk Control & Copy Trading</p>
+  <button class="btn" onclick="window.location.href='copy.html'">Start Copy Trading</button>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="feature-card">
+    <h3>AI Trading Bot 🤖</h3>
+    <p>Automated trading algorithms to maximize profits and reduce risk.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Risk Control ⚡</h3>
+    <p>Advanced risk management strategies to protect your capital.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Prop firm Passing 💼</h3>
+    <p>Access professional trading accounts and earn as a prop trader.</p>
+  </div>
+</section>
+
+<!-- MINI DASHBOARD -->
+<section class="mini-dashboard">
+  <div class="mini-card">
+    <h3>Daily Profit</h3>
+    <p>$1,250</p>
+  </div>
+  <div class="mini-card">
+    <h3>Active Winners</h3>
+    <p>58</p>
+  </div>
+  <div class="mini-card">
+    <h3>Drawdown</h3>
+    <p>6.2%</p>
+  </div>
+</section>
+
+<!-- RECENT TRADES -->
+<section class="recent-trades">
+  <h2>Recent Trades</h2>
+  <ul id="recent-trades-list">
+    <li><span>XAUUSD</span><span>+$120</span></li>
+    <li><span>EURUSD</span><span>+$50</span></li>
+    <li><span>GBPUSD</span><span>-$30</span></li>
+    <li><span>USDJPY</span><span>+$70</span></li>
+    <li><span>XAGUSD</span><span>+$40</span></li>
+  </ul>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <button class="btn" onclick="window.location.href='copy.html'">Join Copy Trading Now</button>
+</section>
+
+<footer>
+  © 2026 Franklin Forex Trades
+</footer>
+
+</body>
+</html>
